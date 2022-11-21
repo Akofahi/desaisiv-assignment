@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "desaisiv-assignment",
   storageBucket: "desaisiv-assignment.appspot.com",
   messagingSenderId: "649705086066",
-  appId: "1:649705086066:web:4ba43ab42919921050f6eb"
+  appId: "1:649705086066:web:a7317b760511ef5f50f6eb"
 };
 
 // Initialize Firebase
