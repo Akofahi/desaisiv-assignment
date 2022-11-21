@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,18 +10,15 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link
+  Link,
+  useLocation,
+  useNavigate
 } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import { Container } from 'react-bootstrap';
 
 
 const routes = [
-  {
-    lable: 'Home',
-    component: <Home />,
-    path: '/'
-  },
   {
     lable: 'Register',
     component: <Register />,
@@ -40,38 +37,40 @@ const routes = [
 ]
 
 function App() {
+  const location = useLocation();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/employees')
+  }, [])
+  
   return (
     <div className="App">
-      <BrowserRouter>
-        <header className="App-header">
 
-          <Nav className='d-flex justify-content-center flex-column flex-sm-row mb-5'>
-            {
-              routes.map(route =>
-                <Nav.Item>
-                  <Nav.Link>
-                    <Link to={route.path}>{route.lable}</Link>
-                  </Nav.Link>
-                </Nav.Item>)
-            }
-          </Nav>
+      <header className="App-header">
 
-        </header>
+        <Nav activeKey={location.pathname} className='nav-bar d-flex justify-content-center flex-column flex-sm-row mb-5'>
+          {
+            routes.map(route =>
+              <Nav.Item key={route.path}>
+                <Nav.Link as={Link} to={route.path} className='nav-link' href={route.path}>
+                  {route.lable}
+                </Nav.Link>
+              </Nav.Item>)
+          }
+        </Nav>
 
-        <Container>
-          <Routes>
-            {
-              routes.map(route => <Route path={route.path} element={route.component} />)
-            }
-          </Routes>
-        </Container>
-      </BrowserRouter>
+      </header>
+
+      <Container>
+        <Routes>
+          {
+            routes.map(route => <Route key={route.path} path={route.path} element={route.component} />)
+          }
+        </Routes>
+      </Container>
     </div>
   );
-}
-
-function Home() {
-  return <h1>Home</h1>;
 }
 
 
