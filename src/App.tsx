@@ -4,6 +4,7 @@ import './App.css';
 import Login from './pages/login';
 import Register from './pages/register';
 import Emptable from './pages/emptable';
+import * as firebase from './firebase.js'
 import {
   BrowserRouter,
   Routes,
