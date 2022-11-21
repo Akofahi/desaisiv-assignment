@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/login';
 import Register from './pages/register';
 import Emptable from './pages/emptable';
@@ -10,38 +11,59 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Nav from 'react-bootstrap/Nav';
+import { Container } from 'react-bootstrap';
+
+
+const routes = [
+  {
+    lable: 'Home',
+    component: <Home />,
+    path: '/'
+  },
+  {
+    lable: 'Register',
+    component: <Register />,
+    path: '/register'
+  },
+  {
+    lable: 'Login',
+    component: <Login />,
+    path: '/login'
+  },
+  {
+    lable: 'employees',
+    component: <Emptable />,
+    path: '/employees'
+  },
+]
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <header className="App-header">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
-          </nav>
+
+          <Nav className='d-flex justify-content-center flex-column flex-sm-row mb-5'>
+            {
+              routes.map(route =>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to={route.path}>{route.lable}</Link>
+                  </Nav.Link>
+                </Nav.Item>)
+            }
+          </Nav>
+
         </header>
-        
-        <div>
+
+        <Container>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/' element={<Home />} />
+            {
+              routes.map(route => <Route path={route.path} element={route.component} />)
+            }
           </Routes>
-        </div>
+        </Container>
       </BrowserRouter>
     </div>
   );
