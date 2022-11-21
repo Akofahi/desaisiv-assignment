@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './pages/login';
+import Register from './pages/register';
+import Emptable from './pages/emptable';
 import {
   BrowserRouter,
   Routes,
@@ -48,8 +50,6 @@ function App() {
 function Home() {
   return <h1>Home</h1>;
 }
-function Register() {
-  return <h1>Register</h1>;
-}
+
 
 export default App;

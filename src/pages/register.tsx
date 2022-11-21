@@ -5,7 +5,7 @@ function Register() {
   return (
     <div className='Register'>
     <Form>
-    <Form.Group className="mb-1" controlId="formBasicName">
+    <Form.Group className="sm-1" controlId="formBasicName">
         <Form.Label>First Name</Form.Label>
         <Form.Control type="text" placeholder="Enter First Name" />
         <Form.Label>Last Name</Form.Label>
