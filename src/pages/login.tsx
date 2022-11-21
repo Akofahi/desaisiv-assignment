@@ -23,6 +23,8 @@ function Login() {
       <Button variant="primary" type="submit">
         Submit
       </Button>
+      <p>Press 
+      <a href="">here</a> To Register</p>
     </Form></div>
   );
 }
