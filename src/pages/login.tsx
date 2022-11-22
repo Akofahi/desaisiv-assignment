@@ -5,40 +5,39 @@ import {
   useAuthState,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
-import {auth} from "../firebaseconfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebaseconfig";
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
   const [signInWithEmailAndPassword, userdata, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
+  useEffect(() => {
+    if(userdata) {
+      navigate('/employees');
+    }
+  }, [userdata])
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    signInWithEmailAndPassword(email,password)
+    signInWithEmailAndPassword(email, password)
   };
 
-  if (error) {
-    return (
-      <div>
-        <p>Error: {error.message}</p>
-      </div>
-    );
-  }
   if (loading) {
     return <p>Loading...</p>;
-  }
-  if (userdata) {
-    return (
-      <div>
-        <p>Signed In User: {userdata.user.email}</p>
-      </div>
-    );
   }
 
   return (
     <div className="Login">
+      <Alert variant='danger'>
+        Error: {error.message}
+      </Alert>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -62,16 +61,13 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
+
         <Button variant="primary" type="submit" >
           Submit
         </Button>
-        <p>
-          Press
-          <a href="">here</a> To Register
-        </p>
+
+        <Link className="mt-3" to='/register'>Register</Link>
+        
       </Form>
     </div>
   );
