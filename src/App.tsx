@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/login';
 import Register from './pages/register';
 import Emptable from './pages/emptable';
-import * as firebase from './firebaseconfig'
 import {
   BrowserRouter,
   Routes,
