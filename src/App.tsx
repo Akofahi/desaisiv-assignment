@@ -14,57 +14,58 @@ import {
 } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import { Container } from 'react-bootstrap';
-// import { } from 'react-firebase-hooks';
-
-const routes = [
-  {
-    lable: 'Register',
-    component: <Register />,
-    path: '/register'
-  },
-  {
-    lable: 'Login',
-    component: <Login />,
-    path: '/login'
-  },
-  {
-    lable: 'employees',
-    component: <Emptable />,
-    path: '/employees'
-  },
-]
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from './firebaseconfig';
 
 function App() {
   const location = useLocation();
+  const [user] = useAuthState(auth);
 
   const navigate = useNavigate();
   useEffect(() => {
     navigate('/employees')
   }, [])
-  
+
+
   return (
     <div className="App">
 
       <header className="App-header">
 
         <Nav activeKey={location.pathname} className='nav-bar d-flex justify-content-center flex-column flex-sm-row mb-5'>
+
           {
-            routes.map(route =>
-              <Nav.Item key={route.path}>
-                <Nav.Link as={Link} to={route.path} className='nav-link' href={route.path}>
-                  {route.lable}
-                </Nav.Link>
-              </Nav.Item>)
+            !user && <Nav.Item>
+              <Nav.Link as={Link} to='/register' className='nav-link' href='/register'>
+                Register
+              </Nav.Link>
+            </Nav.Item>
           }
+          {
+            !user && <Nav.Item>
+              <Nav.Link as={Link} to='/login' className='nav-link' href='/login'>
+                Login
+              </Nav.Link>
+            </Nav.Item>
+          }
+          {
+            user && <Nav.Item>
+              <Nav.Link as={Link} to='/employees' className='nav-link' href='/employees'>
+                Employees
+              </Nav.Link>
+            </Nav.Item>
+          }
+
+
         </Nav>
 
       </header>
 
       <Container>
         <Routes>
-          {
-            routes.map(route => <Route key={route.path} path={route.path} element={route.component} />)
-          }
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/employees' element={<Emptable />} />
         </Routes>
       </Container>
     </div>
