@@ -16,13 +16,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
   const [signInWithEmailAndPassword, userdata, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  useSignInWithEmailAndPassword(auth);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    if(userdata) {
+    if (user) {
       navigate('/employees');
     }
-  }, [userdata])
+  }, [user])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,9 +36,11 @@ function Login() {
 
   return (
     <div className="Login">
-      <Alert variant='danger'>
-        Error: {error.message}
-      </Alert>
+      {
+        error && <Alert variant='danger'>
+          Error: {error.message}
+        </Alert>
+      }
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -66,8 +69,10 @@ function Login() {
           Submit
         </Button>
 
-        <Link className="mt-3" to='/register'>Register</Link>
-        
+        <div className="mt-3">
+          <Link to='/register'>Register</Link>
+        </div>
+
       </Form>
     </div>
   );

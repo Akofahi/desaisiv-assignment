@@ -56,6 +56,12 @@ function App() {
             </Nav.Item>
           }
 
+          {
+            user && <Nav.Item>
+              Hi {user.email}, <p>logout</p>
+            </Nav.Item>
+          }
+
 
         </Nav>
 
