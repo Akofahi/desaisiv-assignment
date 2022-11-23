@@ -93,7 +93,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/employees" element={<Emptable />} />
+          {user && <Route  path="/employees"  element={<Emptable />} />}
         </Routes>
       </Container>
     </div>
