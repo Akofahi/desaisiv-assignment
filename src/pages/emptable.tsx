@@ -1,5 +1,5 @@
 import Table from "react-bootstrap/Table";
-import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db, firebase } from "../firebaseconfig";
 import React, { useEffect, useState } from "react";
@@ -45,6 +45,11 @@ function Emptable() {
     if (!filterText) return true;
     return emp.firstName.toLowerCase().includes(filterText) || emp.lastName.toLowerCase().includes(filterText)
   };
+
+  function deleteEntry() {
+    deleteDoc(doc(db, "Users", id));
+    handleClose();
+  }
 
   const [value, loading, error] = useCollection(
     collection(getFirestore(firebase), "Users"),
@@ -129,6 +134,9 @@ function Emptable() {
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                           Close
+                        </Button>
+                        <Button variant="danger" onClick={() => deleteEntry()}>
+                          Delete
                         </Button>
                         <Button variant="primary" onClick={() => saveChanges()}>
                           Save Changes
