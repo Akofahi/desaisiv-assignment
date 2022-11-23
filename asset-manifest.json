@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Akofahi/desaisiv-assignment/static/css/main.595badea.css",
+    "main.js": "/Akofahi/desaisiv-assignment/static/js/main.ff68ff39.js",
+    "static/js/787.68d14030.chunk.js": "/Akofahi/desaisiv-assignment/static/js/787.68d14030.chunk.js",
+    "static/media/flags@2x.png": "/Akofahi/desaisiv-assignment/static/media/flags@2x.1ff49fd4eddddb2bde9f.png",
+    "static/media/flags.png": "/Akofahi/desaisiv-assignment/static/media/flags.3f9d4c2eaac6057ce601.png",
+    "index.html": "/Akofahi/desaisiv-assignment/index.html",
+    "main.595badea.css.map": "/Akofahi/desaisiv-assignment/static/css/main.595badea.css.map",
+    "main.ff68ff39.js.map": "/Akofahi/desaisiv-assignment/static/js/main.ff68ff39.js.map",
+    "787.68d14030.chunk.js.map": "/Akofahi/desaisiv-assignment/static/js/787.68d14030.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.595badea.css",
+    "static/js/main.ff68ff39.js"
+  ]
+}
