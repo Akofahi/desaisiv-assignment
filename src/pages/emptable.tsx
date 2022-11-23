@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Toast, ToastContainer } from "react-bootstrap";
 
 interface Employee {
   id: string;
@@ -22,13 +22,14 @@ function Emptable() {
   const [fName, setfName] = useState("");
   const [lName, setlName] = useState("");
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const handleClose = () => setShowModal(false);
   const showEditEmployee = (emp) => {
     setId(emp.id);
     setfName(emp.firstName);
     setlName(emp.lastName);
-    setShow(true);
+    setShowModal(true);
   }
   const saveChanges = () => {
     updateDoc(doc(db, "Users", id), {
@@ -36,7 +37,7 @@ function Emptable() {
       lastName: lName,
     }).then(res => {
       console.log(res);
-      setShow(false);
+      setShowModal(false);
     });
   }
 
@@ -62,8 +63,22 @@ function Emptable() {
       navigate("/login");
     }
   }, [user]);
+
+  useEffect(() => {
+    setShowToast(true);
+  }, []);
+
   return (
     <>
+<ToastContainer className="p-3" position={'bottom-end'}>
+      <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+        <Toast.Header>
+          <strong className="me-auto">Login Success</strong>
+        </Toast.Header>
+        <Toast.Body>Welcome back {user?.email}</Toast.Body>
+      </Toast>
+      </ToastContainer>
+
       <Form.Group className="mb-3" controlId="filter">
         <Form.Control
           type="text"
@@ -97,7 +112,7 @@ function Emptable() {
                     <Button onClick={() => showEditEmployee(emp)}>
                       <BiPencil />
                     </Button>{" "}
-                    <Modal show={show} onHide={handleClose}>
+                    <Modal show={showModal} onHide={handleClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>Modal heading</Modal.Title>
                       </Modal.Header>

@@ -6,7 +6,7 @@ import {
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, Toast } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebaseconfig";
 
@@ -16,7 +16,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
   const [signInWithEmailAndPassword, userdata, loading, error] =
-  useSignInWithEmailAndPassword(auth);
+    useSignInWithEmailAndPassword(auth);
   const [user] = useAuthState(auth);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ function Login() {
           Error: {error.message}
         </Alert>
       }
+
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
