@@ -25,7 +25,7 @@ function App() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("/employees");
+    navigate("/login");
   }, []);
 
   return (
@@ -91,7 +91,7 @@ function App() {
 
       <Container>
         <Routes>
-        {!user &&<Route path="/" element={<Login />} />}
+          
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {user && <Route  path="/employees"  element={<Emptable />} />}
