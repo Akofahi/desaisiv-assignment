@@ -4,7 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db, firebase } from "../firebaseconfig";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
 import { Button, Form } from "react-bootstrap";
@@ -13,16 +13,16 @@ function Emptable() {
   const [user] = useAuthState(auth);
   const [fName, setfName] = useState("");
   const [lName, setlName] = useState("");
-  const [docId,setDocID] = useState("");
+  const {id} = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const saveChanges = (id) =>
-    updateDoc(doc(collection(db, "Users")), {
+  function saveChanges(id){
+    updateDoc(doc(db, "Users",id), {
       firstName: fName,
       lastName: lName,
-    });
+    });}
 
   const [value, loading, error] = useCollection(
     collection(getFirestore(firebase), "Users"),
