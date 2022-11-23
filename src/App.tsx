@@ -91,7 +91,7 @@ function App() {
 
       <Container>
         <Routes>
-        <Route path="/" element={<Login />} />
+        {!user &&<Route path="/" element={<Login />} />}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {user && <Route  path="/employees"  element={<Emptable />} />}
