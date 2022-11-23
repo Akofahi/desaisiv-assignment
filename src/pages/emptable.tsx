@@ -11,18 +11,30 @@ import { Button, Form } from "react-bootstrap";
 
 function Emptable() {
   const [user] = useAuthState(auth);
+  const [id, setId] = useState(null);
   const [fName, setfName] = useState("");
   const [lName, setlName] = useState("");
-  const {id} = useParams();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  function saveChanges(id){
+  const showEditEmployee = (doc) => {
+    setId(doc.id);
+    setfName(doc.data().firstName);
+    setlName(doc.data().lastName);
+    setShow(true);
+  }
+  function saveChanges(){
+    console.log('saveChanges');
+    
     updateDoc(doc(db, "Users",id), {
       firstName: fName,
       lastName: lName,
-    });}
+    }).then(res => {
+      console.log(res);
+      setShow(false);
+      
+    });
+  }
 
   const [value, loading, error] = useCollection(
     collection(getFirestore(firebase), "Users"),
@@ -57,7 +69,7 @@ function Emptable() {
                 {" "}
                 <>
                   {" "}
-                  <Button onClick={handleShow}>
+                  <Button onClick={() => showEditEmployee(doc)}>
                     <BiPencil />
                   </Button>{" "}
                   <Modal show={show} onHide={handleClose}>
@@ -98,7 +110,7 @@ function Emptable() {
                       <Button variant="secondary" onClick={handleClose}>
                         Close
                       </Button>
-                      <Button variant="primary" onClick={saveChanges}>
+                      <Button variant="primary" onClick={() => saveChanges()}>
                         Save Changes
                       </Button>
                     </Modal.Footer>
